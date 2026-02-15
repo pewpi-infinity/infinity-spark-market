@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Infinity Spark Marketplace - Own a Piece of the Future</title>
+<meta name="description" content="Professional websites, tools, and digital assets. One-click purchase. Instant ownership transfer. Licensed and registered."/>
+<style>
+:root {
+  --bg: #0a0a0f;
+  --surface: #12121a;
+  --card: #1a1a2e;
+  --border: #2a2a3e;
+  --accent: #7c3aed;
+  --accent2: #a855f7;
+  --gold: #f59e0b;
+  --green: #10b981;
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+  --radius: 12px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg); color:var(--text); font-family:'Segoe UI',system-ui,-apple-system,sans-serif; line-height:1.6; }
+a { color:var(--accent2); text-decoration:none; }
+a:hover { text-decoration:underline; }
+
+/* Header */
+.header {
+  background:linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  border-bottom:1px solid var(--border);
+  padding:1rem 2rem;
+  display:flex; align-items:center; justify-content:space-between;
+  position:sticky; top:0; z-index:100; backdrop-filter:blur(10px);
+}
+.logo { font-size:1.5rem; font-weight:700; }
+.logo span { color:var(--accent2); }
+.nav-links { display:flex; gap:1.5rem; }
+.nav-links a { color:var(--muted); font-size:0.9rem; transition:color 0.2s; }
+.nav-links a:hover { color:var(--text); text-decoration:none; }
+
+/* Hero */
+.hero {
+  text-align:center;
+  padding:4rem 2rem 3rem;
+  background:radial-gradient(ellipse at top, rgba(124,58,237,0.15), transparent 70%);
+}
+.hero h1 { font-size:3rem; font-weight:800; margin-bottom:0.5rem; }
+.hero h1 span { background:linear-gradient(135deg, var(--accent2), var(--gold)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+.hero p { color:var(--muted); font-size:1.2rem; max-width:600px; margin:0 auto 2rem; }
+.hero-stats { display:flex; justify-content:center; gap:3rem; margin-top:2rem; }
+.hero-stat { text-align:center; }
+.hero-stat .num { font-size:2rem; font-weight:700; color:var(--gold); }
+.hero-stat .label { font-size:0.8rem; color:var(--muted); text-transform:uppercase; letter-spacing:1px; }
+
+/* Trust bar */
+.trust-bar {
+  display:flex; justify-content:center; gap:2rem; padding:1.5rem;
+  background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+  flex-wrap:wrap;
+}
+.trust-item { display:flex; align-items:center; gap:0.5rem; color:var(--muted); font-size:0.85rem; }
+.trust-icon { font-size:1.2rem; }
+
+/* Filter */
+.filter-bar {
+  display:flex; justify-content:center; flex-wrap:wrap; gap:0.5rem;
+  padding:2rem 2rem 1rem; max-width:900px; margin:0 auto;
+}
+.filter-btn {
+  background:var(--card); border:1px solid var(--border); color:var(--muted);
+  padding:0.5rem 1.2rem; border-radius:20px; cursor:pointer; font-size:0.85rem;
+  transition:all 0.2s; font-family:inherit;
+}
+.filter-btn:hover, .filter-btn.active { background:var(--accent); color:#fff; border-color:var(--accent); }
+
+/* Grid */
+.grid-container { max-width:1200px; margin:0 auto; padding:1rem 2rem 4rem; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(340px, 1fr)); gap:1.5rem; }
+
+/* Card */
+.card {
+  background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+  overflow:hidden; transition:all 0.3s; position:relative;
+}
+.card:hover { border-color:var(--accent); transform:translateY(-4px); box-shadow:0 12px 40px rgba(124,58,237,0.15); }
+.card-badge {
+  position:absolute; top:1rem; right:1rem;
+  background:var(--gold); color:#000; font-size:0.7rem; font-weight:700;
+  padding:0.25rem 0.6rem; border-radius:10px; text-transform:uppercase;
+}
+.card-header { padding:1.5rem 1.5rem 1rem; }
+.card-icon { font-size:2rem; margin-bottom:0.5rem; }
+.card-title { font-size:1.2rem; font-weight:700; margin-bottom:0.3rem; }
+.card-desc { color:var(--muted); font-size:0.85rem; margin-bottom:1rem; line-height:1.5; }
+.card-tags { display:flex; flex-wrap:wrap; gap:0.4rem; margin-bottom:1rem; }
+.tag {
+  background:rgba(124,58,237,0.15); color:var(--accent2); font-size:0.7rem;
+  padding:0.2rem 0.5rem; border-radius:6px;
+}
+.card-footer {
+  padding:1rem 1.5rem; border-top:1px solid var(--border);
+  display:flex; align-items:center; justify-content:space-between;
+}
+.price { font-size:1.3rem; font-weight:700; color:var(--gold); }
+.price-note { font-size:0.7rem; color:var(--muted); display:block; }
+.buy-btn {
+  background:linear-gradient(135deg, var(--accent), var(--accent2));
+  color:#fff; border:none; padding:0.6rem 1.5rem; border-radius:8px;
+  cursor:pointer; font-weight:600; font-size:0.9rem; font-family:inherit;
+  transition:all 0.2s; text-decoration:none; display:inline-block;
+}
+.buy-btn:hover { opacity:0.9; transform:scale(1.02); text-decoration:none; }
+
+/* Ownership section */
+.ownership {
+  max-width:900px; margin:0 auto; padding:3rem 2rem;
+}
+.ownership h2 { font-size:2rem; font-weight:700; text-align:center; margin-bottom:2rem; }
+.ownership-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:1.5rem; }
+.own-card {
+  background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+  padding:1.5rem; text-align:center;
+}
+.own-card .icon { font-size:2.5rem; margin-bottom:1rem; }
+.own-card h3 { font-size:1.1rem; margin-bottom:0.5rem; }
+.own-card p { color:var(--muted); font-size:0.85rem; }
+
+/* How it works */
+.how-it-works {
+  background:var(--surface); padding:3rem 2rem;
+  border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+}
+.how-it-works h2 { text-align:center; font-size:2rem; margin-bottom:2rem; }
+.steps { display:flex; justify-content:center; gap:2rem; flex-wrap:wrap; max-width:900px; margin:0 auto; }
+.step { text-align:center; flex:1; min-width:180px; }
+.step-num {
+  width:40px; height:40px; border-radius:50%; background:var(--accent);
+  color:#fff; display:inline-flex; align-items:center; justify-content:center;
+  font-weight:700; margin-bottom:0.8rem;
+}
+.step h3 { font-size:1rem; margin-bottom:0.3rem; }
+.step p { color:var(--muted); font-size:0.8rem; }
+.arrow { color:var(--muted); font-size:1.5rem; align-self:center; }
+
+/* Footer */
+.footer {
+  text-align:center; padding:2rem;
+  color:var(--muted); font-size:0.8rem;
+  border-top:1px solid var(--border);
+}
+.hidden { display:none !important; }
+
+@media (max-width:768px) {
+  .hero h1 { font-size:2rem; }
+  .grid { grid-template-columns:1fr; }
+  .hero-stats { gap:1.5rem; }
+  .steps { flex-direction:column; align-items:center; }
+  .arrow { transform:rotate(90deg); }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo"><span>Infinity</span> Spark Market</div>
+  <div class="nav-links">
+    <a href="https://pewpi-infinity.github.io/infinity-crown-index/">Crown Index</a>
+    <a href="https://pewpi-infinity.github.io/infinity-master-hub/">Hub</a>
+    <a href="#listings">Browse</a>
+    <a href="#how">How It Works</a>
+  </div>
+</div>
+
+<div class="hero">
+  <h1>Own a Piece of <span>Infinity</span></h1>
+  <p>Professional websites, tools, and digital systems. Purchase instantly with PayPal. Ownership transfers immediately. Licensed and registered to you.</p>
+  <div class="hero-stats" id="hero-stats">
+    <div class="hero-stat"><div class="num" id="total-listings">0</div><div class="label">Listings</div></div>
+    <div class="hero-stat"><div class="num" id="total-pages">0</div><div class="label">With Pages</div></div>
+    <div class="hero-stat"><div class="num" id="total-categories">0</div><div class="label">Categories</div></div>
+  </div>
+</div>
+
+<div class="trust-bar">
+  <div class="trust-item"><span class="trust-icon">&#128274;</span> Secure PayPal Checkout</div>
+  <div class="trust-item"><span class="trust-icon">&#9889;</span> Instant Ownership Transfer</div>
+  <div class="trust-item"><span class="trust-icon">&#128220;</span> Licensed & Registered</div>
+  <div class="trust-item"><span class="trust-icon">&#127760;</span> GitHub Pages Included</div>
+  <div class="trust-item"><span class="trust-icon">&#128736;</span> Full Source Code Access</div>
+</div>
+
+<div id="how" class="how-it-works">
+  <h2>How It Works</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Browse</h3>
+      <p>Find a website, tool, or system you want to own</p>
+    </div>
+    <div class="arrow">&#8594;</div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Buy Now</h3>
+      <p>One-click PayPal purchase. No signup required.</p>
+    </div>
+    <div class="arrow">&#8594;</div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Transfer</h3>
+      <p>Repo + domain ownership transferred to your GitHub</p>
+    </div>
+    <div class="arrow">&#8594;</div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h3>Own It</h3>
+      <p>Licensed to you. Build on it, sell it, keep it forever.</p>
+    </div>
+  </div>
+</div>
+
+<div class="filter-bar" id="filter-bar"></div>
+
+<div id="listings" class="grid-container">
+  <div class="grid" id="grid"></div>
+</div>
+
+<div class="ownership">
+  <h2>What You Get With Every Purchase</h2>
+  <div class="ownership-grid">
+    <div class="own-card">
+      <div class="icon">&#128187;</div>
+      <h3>Full Source Code</h3>
+      <p>Complete repo transferred to your GitHub. All files, history, and branches.</p>
+    </div>
+    <div class="own-card">
+      <div class="icon">&#127760;</div>
+      <h3>Live Website</h3>
+      <p>GitHub Pages site deployed and working. Custom domain ready.</p>
+    </div>
+    <div class="own-card">
+      <div class="icon">&#128220;</div>
+      <h3>License</h3>
+      <p>Registered ownership. Use commercially, modify freely, resell if you want.</p>
+    </div>
+    <div class="own-card">
+      <div class="icon">&#128274;</div>
+      <h3>Stays in Infinity</h3>
+      <p>Your asset is part of the Infinity network. Value grows with the ecosystem.</p>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  Infinity Spark Market &mdash; pewpi-infinity &mdash; Part of the Infinity Crown System<br/>
+  All purchases processed securely via PayPal. Ownership transfers within 24 hours.
+</div>
+
+<script>
+// ==========================================
+// MARKETPLACE DATA & CONFIGURATION
+// ==========================================
+
+// PayPal config - REPLACE with your PayPal.me or business email
+const PAYPAL_EMAIL = "YOUR_PAYPAL_EMAIL@example.com"; // <-- SET THIS
+const PAYPAL_ME = ""; // e.g. "pewpiinfinity" for paypal.me/pewpiinfinity
+
+const USER = "pewpi-infinity";
+
+// Pricing tiers based on category + features
+const PRICING = {
+  crown:      { base: 99,  label: "Premium System",  badge: "PREMIUM" },
+  engineer:   { base: 49,  label: "Research Tool",    badge: "RESEARCH" },
+  ceo:        { base: 29,  label: "Business Asset",   badge: "ASSET" },
+  investigate:{ base: 39,  label: "Analysis Tool",    badge: "INTEL" },
+  import:     { base: 19,  label: "Data Tool",        badge: "DATA" },
+  routes:     { base: 24,  label: "Connector",        badge: "LINK" },
+  data:       { base: 9,   label: "Starter Site",     badge: null },
+};
+
+// Featured listings (curated high-value items)
+const FEATURED = {
+  "infinity-spark-market":    { price: 199, desc: "Full marketplace system with buying/selling, token minting, and PayPal integration." },
+  "infinity-crown-index":     { price: 149, desc: "Dashboard that scans 1000+ repos, categorizes them, and displays analytics. The crown jewel." },
+  "infinity-spark-engine":    { price: 99,  desc: "Automated engine that builds websites from ideas. Neural slot machine creation." },
+  "infinity-spark-terminal":  { price: 79,  desc: "Interactive terminal interface for the entire Infinity system. Command center." },
+  "infinity-spark-bridge":    { price: 59,  desc: "Connector that links all Spark repos into one unified system." },
+  "infinity-spark-forge":     { price: 69,  desc: "Website forge - automated site generator with templates and themes." },
+  "infinity-master-hub":      { price: 49,  desc: "Central hub linking all GitHub Pages sites. Auto-syncing portal." },
+  "infinity-spark-vault":     { price: 59,  desc: "Secure storage system for tokens, assets, and digital property." },
+  "infinity-spark-nexus":     { price: 49,  desc: "Central connection point for the entire Spark network." },
+  "infinity-spark-core":      { price: 89,  desc: "The core system that powers all Infinity Spark operations." },
+  "MARIO-TOKENS":             { price: 29,  desc: "Mario-themed token system. Game meets finance." },
+  "-Mario-InfinityTrumpCoin-":{ price: 19,  desc: "Mario game world with coin mechanics and gameplay." },
+  "bitcoin_octave_resonance": { price: 39,  desc: "Octave-based Bitcoin resonance analysis tool." },
+  "infinity-spark-lab":       { price: 39,  desc: "Experimental playground for building and testing new Spark modules." },
+  "infinity-spark-studio":    { price: 59,  desc: "Visual website builder studio with drag-and-drop tools." },
+};
+
+// Category keywords (same as the brain scanner)
+function classify(name) {
+  const n = name.toLowerCase();
+  if (/crown|infinity-crown|master-hub|index/.test(n)) return "crown";
+  if (/hydrogen|research|paper|lab|science/.test(n)) return "engineer";
+  if (/token|wallet|spark|coin|trade|market|mint|ledger/.test(n)) return "ceo";
+  if (/scrape|fetch|import|feed|ingest/.test(n)) return "import";
+  if (/brain|mongoose|scan|detect|monitor/.test(n)) return "investigate";
+  if (/route|path|link|connect|bridge|relay/.test(n)) return "routes";
+  return "data";
+}
+
+function getPrice(name, cat, hasPages) {
+  if (FEATURED[name]) return FEATURED[name].price;
+  let price = PRICING[cat]?.base || 9;
+  if (hasPages) price += 10;
+  return price;
+}
+
+function getDescription(name, cat) {
+  if (FEATURED[name]) return FEATURED[name].desc;
+  const title = name.replace(/[-_]/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+  return `${title} - ${PRICING[cat]?.label || "Digital Asset"}. Full source code and ownership.`;
+}
+
+function paypalLink(name, price) {
+  if (PAYPAL_ME) {
+    return `https://paypal.me/${PAYPAL_ME}/${price}USD`;
+  }
+  // PayPal buy-now button link
+  return `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=${encodeURIComponent(PAYPAL_EMAIL)}&item_name=${encodeURIComponent("Infinity Spark: " + name)}&amount=${price}&currency_code=USD&return=${encodeURIComponent(window.location.href)}&cancel_return=${encodeURIComponent(window.location.href)}`;
+}
+
+// ==========================================
+// RENDERING
+// ==========================================
+
+let allListings = [];
+let activeFilter = null;
+
+function renderCard(item) {
+  const cat = item.category;
+  const pricing = PRICING[cat] || PRICING.data;
+  const badge = item.featured ? "FEATURED" : pricing.badge;
+  const badgeHTML = badge ? `<div class="card-badge">${badge}</div>` : "";
+  const pagesTag = item.hasPages ? `<span class="tag">Live Site</span>` : "";
+
+  return `<div class="card" data-category="${cat}">
+    ${badgeHTML}
+    <div class="card-header">
+      <div class="card-title">${item.title}</div>
+      <div class="card-desc">${item.desc}</div>
+      <div class="card-tags">
+        <span class="tag">${cat}</span>
+        <span class="tag">${item.lang || "Multi"}</span>
+        ${pagesTag}
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="price">$${item.price}<span class="price-note">one-time / own forever</span></div>
+      <a class="buy-btn" href="${paypalLink(item.name, item.price)}" target="_blank" rel="noopener">Buy Now</a>
+    </div>
+  </div>`;
+}
+
+function renderFilters() {
+  const cats = {};
+  allListings.forEach(l => { cats[l.category] = (cats[l.category] || 0) + 1; });
+  const bar = document.getElementById("filter-bar");
+  let html = `<button class="filter-btn active" onclick="filterAll(this)">All (${allListings.length})</button>`;
+  for (const [cat, count] of Object.entries(cats).sort((a,b) => b[1]-a[1])) {
+    html += `<button class="filter-btn" onclick="filterCat(this,'${cat}')">${cat} (${count})</button>`;
+  }
+  bar.innerHTML = html;
+}
+
+function renderGrid() {
+  const grid = document.getElementById("grid");
+  const filtered = activeFilter
+    ? allListings.filter(l => l.category === activeFilter)
+    : allListings;
+  grid.innerHTML = filtered.map(renderCard).join("");
+}
+
+function filterAll(btn) {
+  activeFilter = null;
+  document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  renderGrid();
+}
+
+function filterCat(btn, cat) {
+  activeFilter = cat;
+  document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  renderGrid();
+}
+
+// ==========================================
+// DATA LOADING
+// ==========================================
+
+async function loadListings() {
+  // Try brain manifest first, then API
+  let repos = [];
+
+  try {
+    const r = await fetch(`https://raw.githubusercontent.com/${USER}/mongoose-brain-scanner/main/brain/maps/pages_manifest.json`);
+    if (r.ok) {
+      const data = await r.json();
+      repos = (data.pages || []).map(p => ({
+        name: p.name, hasPages: true, lang: "", category: p.category || classify(p.name)
+      }));
+    }
+  } catch(e) {}
+
+  // If no brain data, fetch from API
+  if (repos.length === 0) {
+    try {
+      for (let page = 1; page <= 5; page++) {
+        const r = await fetch(`https://api.github.com/users/${USER}/repos?per_page=100&page=${page}`);
+        if (!r.ok) break;
+        const batch = await r.json();
+        if (!batch.length) break;
+        repos.push(...batch.map(r => ({
+          name: r.name, hasPages: r.has_pages, lang: r.language || "", category: classify(r.name)
+        })));
+      }
+    } catch(e) {}
+  }
+
+  // Build listings - prioritize featured, then pages, then rest
+  allListings = repos.map(r => {
+    const cat = r.category;
+    return {
+      name: r.name,
+      title: r.name.replace(/[-_]/g, " ").replace(/\b\w/g, c => c.toUpperCase()),
+      desc: getDescription(r.name, cat),
+      category: cat,
+      price: getPrice(r.name, cat, r.hasPages),
+      hasPages: r.hasPages,
+      lang: r.lang,
+      featured: !!FEATURED[r.name],
+    };
+  });
+
+  // Sort: featured first, then by price desc
+  allListings.sort((a, b) => {
+    if (a.featured && !b.featured) return -1;
+    if (!a.featured && b.featured) return 1;
+    return b.price - a.price;
+  });
+
+  // Update stats
+  const pagesCount = allListings.filter(l => l.hasPages).length;
+  const cats = new Set(allListings.map(l => l.category));
+  document.getElementById("total-listings").textContent = allListings.length;
+  document.getElementById("total-pages").textContent = pagesCount;
+  document.getElementById("total-categories").textContent = cats.size;
+
+  renderFilters();
+  renderGrid();
+}
+
+loadListings();
+</script>
+</body>
+</html>
